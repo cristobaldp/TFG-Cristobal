@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>VentanaMenu</class>
+ <widget class="QMainWindow" name="VentanaMenu">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>450</width>
+    <height>520</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Menú Principal</string>
+  </property>
+
+  <!-- CENTRAL WIDGET OBLIGATORIO EN QMainWindow -->
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QVBoxLayout" name="verticalLayout">
+
+    <item>
+     <widget class="QLabel" name="labelBienvenida">
+      <property name="text">
+       <string>Bienvenido a Kilómetro a Kilómetro</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+      <property name="styleSheet">
+       <string>font-size: 18px; font-weight: bold;</string>
+      </property>
+     </widget>
+    </item>
+
+    <item>
+     <widget class="QPushButton" name="botonVehiculos">
+      <property name="text">
+       <string>Gestionar Vehículos</string>
+      </property>
+      <property name="minimumHeight">
+       <number>40</number>
+      </property>
+     </widget>
+    </item>
+
+    <item>
+     <widget class="QPushButton" name="botonRepostajes">
+      <property name="text">
+       <string>Repostajes</string>
+      </property>
+      <property name="minimumHeight">
+       <number>40</number>
+      </property>
+     </widget>
+    </item>
+
+    <item>
+     <widget class="QPushButton" name="botonMapaGasolineras">
+      <property name="text">
+       <string>Mapa de Gasolineras</string>
+      </property>
+      <property name="minimumHeight">
+       <number>40</number>
+      </property>
+     </widget>
+    </item>
+
+    <item>
+     <widget class="QPushButton" name="botonHistorial">
+      <property name="text">
+       <string>Historial</string>
+      </property>
+      <property name="minimumHeight">
+       <number>40</number>
+      </property>
+     </widget>
+    </item>
+
+    <item>
+     <widget class="QPushButton" name="botonEstadisticas">
+      <property name="text">
+       <string>Estadísticas</string>
+      </property>
+      <property name="minimumHeight">
+       <number>40</number>
+      </property>
+     </widget>
+    </item>
+
+    <item>
+     <widget class="QPushButton" name="botonPerfil">
+      <property name="text">
+       <string>Perfil del Usuario</string>
+      </property>
+      <property name="minimumHeight">
+       <number>40</number>
+      </property>
+     </widget>
+    </item>
+
+    <item>
+     <widget class="QPushButton" name="botonAjustes">
+      <property name="text">
+       <string>Ajustes</string>
+      </property>
+      <property name="minimumHeight">
+       <number>40</number>
+      </property>
+     </widget>
+    </item>
+
+    <item>
+     <widget class="QPushButton" name="botonCerrarSesion">
+      <property name="text">
+       <string>Cerrar Sesión</string>
+      </property>
+      <property name="minimumHeight">
+       <number>40</number>
+      </property>
+     </widget>
+    </item>
+
+    <item>
+     <widget class="QPushButton" name="botonSalir">
+      <property name="text">
+       <string>Salir</string>
+      </property>
+      <property name="minimumHeight">
+       <number>40</number>
+      </property>
+     </widget>
+    </item>
+
+   </layout>
+  </widget>
+
+  <widget class="QMenuBar" name="menubar"/>
+  <widget class="QStatusBar" name="statusbar"/>
+
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

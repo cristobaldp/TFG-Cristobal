@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>VentanaAnadirVehiculo</class>
+ <widget class="QWidget" name="VentanaAnadirVehiculo">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>420</width>
+    <height>500</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Añadir Vehículo</string>
+  </property>
+
+  <layout class="QVBoxLayout" name="verticalLayout">
+
+   <item>
+    <widget class="QLabel" name="labelTitulo">
+     <property name="text">
+      <string>Añadir Vehículo</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+     <property name="styleSheet">
+      <string>font-size: 20px; font-weight: bold;</string>
+     </property>
+    </widget>
+   </item>
+
+   <!-- Tipo -->
+   <item>
+    <widget class="QComboBox" name="comboBoxTipo">
+     <item><property name="text"><string>Coche</string></property></item>
+     <item><property name="text"><string>Moto</string></property></item>
+     <item><property name="text"><string>Furgoneta</string></property></item>
+     <item><property name="text"><string>Camión</string></property></item>
+     <item><property name="text"><string>Industrial</string></property></item>
+    </widget>
+   </item>
+
+   <!-- Marca -->
+   <item>
+    <widget class="QComboBox" name="comboBoxMarca"/>
+   </item>
+
+   <!-- Modelo -->
+   <item>
+    <widget class="QComboBox" name="comboBoxModelo"/>
+   </item>
+
+   <!-- Matrícula -->
+   <item>
+    <widget class="QLineEdit" name="entradaMatricula">
+     <property name="placeholderText">
+      <string>Matrícula (1234-ABC)</string>
+     </property>
+    </widget>
+   </item>
+
+   <!-- Año -->
+   <item>
+    <widget class="QLineEdit" name="entradaAnio">
+     <property name="placeholderText">
+      <string>Año</string>
+     </property>
+    </widget>
+   </item>
+
+   <!-- Combustible -->
+   <item>
+    <widget class="QComboBox" name="comboBoxCombustible">
+     <item><property name="text"><string>Gasolina</string></property></item>
+     <item><property name="text"><string>Diésel</string></property></item>
+     <item><property name="text"><string>Híbrido</string></property></item>
+     <item><property name="text"><string>Eléctrico</string></property></item>
+     <item><property name="text"><string>GLP</string></property></item>
+    </widget>
+   </item>
+
+   <!-- Consumo -->
+   <item>
+    <widget class="QLineEdit" name="entradaConsumo">
+     <property name="placeholderText">
+      <string>Consumo (L/100km)</string>
+     </property>
+    </widget>
+   </item>
+
+   <!-- Botones -->
+   <item>
+    <widget class="QPushButton" name="botonGuardar">
+     <property name="text">
+      <string>Guardar Vehículo</string>
+     </property>
+     <property name="minimumHeight">
+      <number>40</number>
+     </property>
+    </widget>
+   </item>
+
+   <item>
+    <widget class="QPushButton" name="botonVolver">
+     <property name="text">
+      <string>Volver</string>
+     </property>
+     <property name="minimumHeight">
+      <number>40</number>
+     </property>
+    </widget>
+   </item>
+
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
