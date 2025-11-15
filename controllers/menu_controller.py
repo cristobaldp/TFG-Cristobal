@@ -1,7 +1,6 @@
-from PySide6.QtWidgets import QMainWindow,QApplication
+from PySide6.QtWidgets import QMainWindow, QApplication
 from views.menu_ui import VentanaMenu
 from controllers.vehiculos_controller import VehiculosController
-
 
 
 class MenuController(QMainWindow):
@@ -16,7 +15,7 @@ class MenuController(QMainWindow):
         # Cambiar texto bienvenida
         self.ui.labelBienvenida.setText(f"Bienvenido, {usuario.nombre}")
 
-        # ========= AÑADIR EMOJIS DESDE PYTHON =========
+        # ========= EMOJIS EN BOTONES =========
         self.ui.botonVehiculos.setText("🚗  " + self.ui.botonVehiculos.text())
         self.ui.botonRepostajes.setText("⛽  " + self.ui.botonRepostajes.text())
         self.ui.botonMapaGasolineras.setText("🗺️  " + self.ui.botonMapaGasolineras.text())
@@ -26,7 +25,7 @@ class MenuController(QMainWindow):
         self.ui.botonAjustes.setText("⚙️  " + self.ui.botonAjustes.text())
         self.ui.botonCerrarSesion.setText("🔐  " + self.ui.botonCerrarSesion.text())
         self.ui.botonSalir.setText("❌  " + self.ui.botonSalir.text())
-        # ===============================================
+        # =====================================
 
         # ========= CONEXIONES =========
         self.ui.botonVehiculos.clicked.connect(self.abrir_vehiculos)
@@ -35,15 +34,16 @@ class MenuController(QMainWindow):
         self.ui.botonHistorial.clicked.connect(self.abrir_historial)
         self.ui.botonEstadisticas.clicked.connect(self.abrir_estadisticas)
         self.ui.botonPerfil.clicked.connect(self.abrir_perfil)
+
+        # AJUSTES (NUEVO) ⭐⭐⭐
         self.ui.botonAjustes.clicked.connect(self.abrir_ajustes)
+
         self.ui.botonCerrarSesion.clicked.connect(self.cerrar_sesion)
-        self.ui.botonSalir.clicked.connect(self.salir_completamente)
-        # ===============================================
+        self.ui.botonSalir.clicked.connect(self.salir_app)
+        # ======================================
 
-    # ------------ NAVEGACIÓN ------------
-
+    # -------- ABRIR GESTIÓN DE VEHÍCULOS --------
     def abrir_vehiculos(self):
-        """Abre la ventana de gestión de vehículos (en otra ventana)."""
         self.ventanaVehiculos = VehiculosController(
             self.app,
             self.app.vehiculo_service,
@@ -53,26 +53,29 @@ class MenuController(QMainWindow):
         self.ventanaVehiculos.show()
 
     def abrir_repostajes(self):
-        print("Abrir repostajes (no implementado).")
+        print("Repostajes... (por implementar)")
 
     def abrir_mapa(self):
-        print("Mapa de gasolineras (no implementado).")
+        print("Mapa de gasolineras... (por implementar)")
 
     def abrir_historial(self):
-        print("Abrir historial.")
+        print("Historial...")
 
     def abrir_estadisticas(self):
-        print("Abrir estadísticas.")
+        print("Estadísticas...")
 
     def abrir_perfil(self):
-        print("Abrir perfil del usuario.")
+        print("Perfil del usuario...")
 
+    # -------- ABRIR AJUSTES (NUEVO) -------- ⭐⭐⭐
     def abrir_ajustes(self):
-        print("Abrir ajustes.")
+        self.app.open_ajustes(self.usuario)
 
+    # -------- CERRAR SESIÓN --------
     def cerrar_sesion(self):
         self.close()
         self.app.show_login()
 
-    def salir_completamente(self):
+    # -------- SALIR COMPLETAMENTE --------
+    def salir_app(self):
         QApplication.quit()

@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>VentanaAjustes</class>
+ <widget class="QDialog" name="VentanaAjustes">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>420</width>
+    <height>520</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Ajustes</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QLabel" name="labelTitulo">
+     <property name="styleSheet">
+      <string>font-size: 18px; font-weight: bold;</string>
+     </property>
+     <property name="text">
+      <string>Ajustes de la aplicación</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignmentFlag::AlignCenter</set>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QComboBox" name="comboTema">
+     <item>
+      <property name="text">
+       <string>Claro</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Oscuro</string>
+      </property>
+     </item>
+    </widget>
+   </item>
+   <item>
+    <widget class="QComboBox" name="comboIdioma">
+     <item>
+      <property name="text">
+       <string>Español</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Inglés</string>
+      </property>
+     </item>
+    </widget>
+   </item>
+   <item>
+    <widget class="QComboBox" name="comboRadio">
+     <item>
+      <property name="text">
+       <string>2 km</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>5 km</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>10 km</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>20 km</string>
+      </property>
+     </item>
+    </widget>
+   </item>
+   <item>
+    <widget class="QComboBox" name="comboVehiculo"/>
+   </item>
+   <item>
+    <widget class="QCheckBox" name="checkNotificaciones">
+     <property name="text">
+      <string>Activar notificaciones</string>
+     </property>
+     <property name="checkable">
+      <bool>true</bool>
+     </property>
+     <property name="checked">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QPushButton" name="botonCambiarPassword">
+     <property name="text">
+      <string>Cambiar contraseña</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QPushButton" name="botonExportar">
+     <property name="text">
+      <string>Exportar datos</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QPushButton" name="botonLimpiarCache">
+     <property name="text">
+      <string>Limpiar caché</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QPushButton" name="botonVolver">
+     <property name="text">
+      <string>Volver</string>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
