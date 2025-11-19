@@ -30,7 +30,6 @@ class UsuarioService:
         if not self.validar_telefono(telefono):
             return "TELEFONO_INVALIDO"
 
-        # Cifrar la contraseña
         hashed = bcrypt.hashpw(password.encode("utf-8"), bcrypt.gensalt())
 
         ok = self.repo.insertar(nombre, apellidos, username, email, telefono, ciudad, fecha, hashed)
@@ -40,12 +39,22 @@ class UsuarioService:
     # LOGIN
     # ============================
     def login(self, usuario, password):
-        row = self.repo.buscar(usuario)
-        if not row:
-            return None
+      row = self.repo.buscar(usuario)
+      if not row:
+        return None  # usuario no encontrado
 
-        stored_hash = row[-1]   # última columna es password hash
+      stored_hash = row[-1]   # hash en la última columna
 
-        if bcrypt.checkpw(password.encode("utf-8"), stored_hash):
-            return Usuario(*row[:-1])  # todos menos password
-        return None
+      if bcrypt.checkpw(password.encode("utf-8"), stored_hash):
+        # Crear objeto Usuario EXACTO en el orden correcto
+        return Usuario(
+            row[0],  # id
+            row[1],  # nombre
+            row[2],  # apellidos
+            row[3],  # username
+            row[4],  # email
+            row[5],  # telefono
+            row[6],  # ciudad
+            row[7]   # fecha_nacimiento
+        )
+      return None

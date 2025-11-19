@@ -1,10 +1,4 @@
-from PySide6.QtWidgets import (
-    QWidget,
-    QTableWidgetItem,
-    QMessageBox,
-    QAbstractItemView
-)
-
+from PySide6.QtWidgets import QWidget, QTableWidgetItem, QMessageBox, QAbstractItemView
 from views.vehiculos_ui import VentanaVehiculos
 from controllers.vehiculo_añadir_controller import VehiculoAnadirController
 
@@ -20,96 +14,68 @@ class VehiculosController(QWidget):
         self.ui = VentanaVehiculos()
         self.ui.setupUi(self)
 
-        # ===============================
-        #   CONFIGURAR TABLA
-        # ===============================
+        # Configurar tabla
         headers = ["Tipo", "Marca", "Modelo", "Matrícula", "Año", "Combustible", "Consumo"]
         self.ui.tableVehiculos.setColumnCount(len(headers))
         self.ui.tableVehiculos.setHorizontalHeaderLabels(headers)
 
-        # No permitir edición manual
         self.ui.tableVehiculos.setEditTriggers(QAbstractItemView.NoEditTriggers)
-
-        # Seleccionar fila completa
         self.ui.tableVehiculos.setSelectionBehavior(QAbstractItemView.SelectRows)
 
-        # ===============================
-        #   BOTONES
-        # ===============================
+        # Botones
         self.ui.botonAnadir.clicked.connect(self.abrir_anadir)
         self.ui.botonEliminar.clicked.connect(self.eliminar)
         self.ui.botonVolver.clicked.connect(self.close)
 
-        # ===============================
-        #   CARGAR VEHÍCULOS
-        # ===============================
+        # Cargar datos
         self.cargar_vehiculos()
 
-    # ===============================
-    #   CARGAR VEHÍCULOS BD
-    # ===============================
+    # -------------------------
     def cargar_vehiculos(self):
         datos = self.repo.obtener_por_usuario(self.usuario.id)
         self.ui.tableVehiculos.setRowCount(0)
 
-        for row in datos:
-            # row → (id, user_id, tipo, marca, modelo, matricula, anio, combustible, consumo)
-            id_, _, tipo, marca, modelo, matricula, anio, combustible, consumo = row
+        for fila in datos:
+            (id_, _, tipo, marca, modelo, matricula, anio, combustible, consumo) = fila
 
-            r = self.ui.tableVehiculos.rowCount()
-            self.ui.tableVehiculos.insertRow(r)
+            row = self.ui.tableVehiculos.rowCount()
+            self.ui.tableVehiculos.insertRow(row)
 
-            self.ui.tableVehiculos.setItem(r, 0, QTableWidgetItem(tipo))
-            self.ui.tableVehiculos.setItem(r, 1, QTableWidgetItem(marca))
-            self.ui.tableVehiculos.setItem(r, 2, QTableWidgetItem(modelo))
-            self.ui.tableVehiculos.setItem(r, 3, QTableWidgetItem(matricula))
-            self.ui.tableVehiculos.setItem(r, 4, QTableWidgetItem(str(anio)))
-            self.ui.tableVehiculos.setItem(r, 5, QTableWidgetItem(combustible))
-            self.ui.tableVehiculos.setItem(r, 6, QTableWidgetItem(str(consumo)))
+            self.ui.tableVehiculos.setItem(row, 0, QTableWidgetItem(tipo))
+            self.ui.tableVehiculos.setItem(row, 1, QTableWidgetItem(marca))
+            self.ui.tableVehiculos.setItem(row, 2, QTableWidgetItem(modelo))
+            self.ui.tableVehiculos.setItem(row, 3, QTableWidgetItem(matricula))
+            self.ui.tableVehiculos.setItem(row, 4, QTableWidgetItem(str(anio)))
+            self.ui.tableVehiculos.setItem(row, 5, QTableWidgetItem(combustible))
+            self.ui.tableVehiculos.setItem(row, 6, QTableWidgetItem(str(consumo)))
 
-            # Guardar ID del vehículo en la primera columna (UserRole = 256)
-            self.ui.tableVehiculos.item(r, 0).setData(256, id_)
+            # Guardar ID oculto
+            self.ui.tableVehiculos.item(row, 0).setData(256, id_)
 
-    # ===============================
-    #   AÑADIR VEHÍCULO
-    # ===============================
+    # -------------------------
     def abrir_anadir(self):
-        dialog = VehiculoAnadirController(
-            self.app,
-            self.service,
-            self.repo,
-            self.usuario
-        )
-        dialog.exec()
-        self.cargar_vehiculos()  # Recargar tabla al cerrar
+        dialog = VehiculoAnadirController(self.app, self.service, self.repo, self.usuario)
+        if dialog.exec():
+            self.cargar_vehiculos()
 
-    # ===============================
-    #   OBTENER ID DE LA FILA
-    # ===============================
-    def obtener_id_seleccionado(self):
+    # -------------------------
+    def obtener_id(self):
         items = self.ui.tableVehiculos.selectedItems()
         if not items:
             return None
-
         row = items[0].row()
         return self.ui.tableVehiculos.item(row, 0).data(256)
 
-    # ===============================
-    #   ELIMINAR VEHÍCULO
-    # ===============================
+    # -------------------------
     def eliminar(self):
-        id_vehiculo = self.obtener_id_seleccionado()
-
+        id_vehiculo = self.obtener_id()
         if not id_vehiculo:
-            QMessageBox.warning(self, "Aviso", "Selecciona un vehículo para eliminar.")
+            QMessageBox.warning(self, "Aviso", "Selecciona un vehículo.")
             return
 
-        confirmar = QMessageBox.question(
-            self,
-            "Eliminar",
-            "¿Seguro que deseas eliminar este vehículo?",
-            QMessageBox.Yes | QMessageBox.No
-        )
+        confirmar = QMessageBox.question(self, "Eliminar",
+                                         "¿Seguro que deseas eliminarlo?",
+                                         QMessageBox.Yes | QMessageBox.No)
 
         if confirmar == QMessageBox.Yes:
             self.repo.eliminar(id_vehiculo)

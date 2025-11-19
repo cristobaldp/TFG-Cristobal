@@ -1,5 +1,6 @@
 from PySide6.QtWidgets import QDialog, QMessageBox
 from views.vehiculo_anadir_ui import VentanaAnadirVehiculo
+import re
 
 
 class VehiculoAnadirController(QDialog):
@@ -13,79 +14,109 @@ class VehiculoAnadirController(QDialog):
         self.ui = VentanaAnadirVehiculo()
         self.ui.setupUi(self)
 
-        # =======================================================
-        # CARGAR TIPOS (ya están en el .ui, pero los refrescamos)
-        # =======================================================
-        tipos = self.service.obtener_tipos()
+        # --------------------------------------
+        #   CARGAR TIPOS DESDE EL JSON
+        # --------------------------------------
         self.ui.comboBoxTipo.clear()
-        self.ui.comboBoxTipo.addItems(tipos)
+        self.ui.comboBoxTipo.addItems(self.service.obtener_tipos())
 
-        # =======================================================
-        # CARGAR MARCAS/MODELOS
-        # =======================================================
+        # --------------------------------------
+        #   CONEXIONES
+        # --------------------------------------
         self.ui.comboBoxTipo.currentTextChanged.connect(self.cargar_marcas)
         self.ui.comboBoxMarca.currentTextChanged.connect(self.cargar_modelos)
+        self.ui.entradaMatricula.textChanged.connect(self.forzar_mayusculas)
 
-        # Primera carga
-        self.cargar_marcas(self.ui.comboBoxTipo.currentText())
-
-        # =======================================================
-        # BOTONES
-        # =======================================================
         self.ui.botonGuardar.clicked.connect(self.guardar)
         self.ui.botonVolver.clicked.connect(self.close)
 
-    # =======================================================
-    # AL CAMBIAR TIPO → CARGAR MARCAS
-    # =======================================================
-    def cargar_marcas(self, tipo):
+        # --------------------------------------
+        #   CARGA INICIAL (SOLUCIÓN A TU PROBLEMA)
+        # --------------------------------------
+        self.cargar_marcas()   # Esto carga las marcas de "Coche" al iniciar
+        self.cargar_modelos()  # Cargar modelos iniciales
+
+
+    # =====================================================
+    # CARGAR MARCAS SEGÚN TIPO
+    # =====================================================
+    def cargar_marcas(self):
+        tipo = self.ui.comboBoxTipo.currentText()
         marcas = self.service.obtener_marcas(tipo)
+
         self.ui.comboBoxMarca.clear()
         self.ui.comboBoxMarca.addItems(marcas)
 
-        if marcas:
-            self.cargar_modelos(marcas[0])
+        # Cargar modelos de la primera marca disponible
+        self.cargar_modelos()
 
-    # =======================================================
-    # AL CAMBIAR MARCA → CARGAR MODELOS
-    # =======================================================
-    def cargar_modelos(self, marca):
+
+    # =====================================================
+    # CARGAR MODELOS SEGÚN MARCA
+    # =====================================================
+    def cargar_modelos(self):
         tipo = self.ui.comboBoxTipo.currentText()
+        marca = self.ui.comboBoxMarca.currentText()
+
         modelos = self.service.obtener_modelos(tipo, marca)
+
         self.ui.comboBoxModelo.clear()
         self.ui.comboBoxModelo.addItems(modelos)
 
-    # =======================================================
-    # GUARDAR VEHÍCULO
-    # =======================================================
+
+    # =====================================================
+    # FORZAR MATRÍCULA A MAYÚSCULAS
+    # =====================================================
+    def forzar_mayusculas(self):
+        texto = self.ui.entradaMatricula.text().upper()
+        self.ui.entradaMatricula.setText(texto)
+
+
+    # =====================================================
+    # VALIDACIÓN MATRÍCULA (FORMATO REAL 1234-ABC)
+    # =====================================================
+    def validar_matricula(self, matricula):
+        patron = r"^[0-9]{4}-[A-Z]{3}$"
+        return re.match(patron, matricula) is not None
+
+
+    # =====================================================
+    # GUARDAR VEHÍCULO EN BD
+    # =====================================================
     def guardar(self):
         tipo = self.ui.comboBoxTipo.currentText()
         marca = self.ui.comboBoxMarca.currentText()
         modelo = self.ui.comboBoxModelo.currentText()
-        matricula = self.ui.entradaMatricula.text().strip()
-        anio = self.ui.entradaAnio.text().strip()
+        matricula = self.ui.entradaMatricula.text().upper()
+        anio = self.ui.entradaAnio.text()
         combustible = self.ui.comboBoxCombustible.currentText()
-        consumo = self.ui.entradaConsumo.text().strip()
+        consumo = self.ui.entradaConsumo.text()
 
-        # Validacion
+        # ------------------------
+        # Validar matrícula real
+        # ------------------------
+        if not self.validar_matricula(matricula):
+            QMessageBox.warning(self, "Error", "La matrícula debe ser del tipo 1234-ABC")
+            return
+
+        # ------------------------
+        # Validación adicional del servicio
+        # ------------------------
         valido, msg = self.service.validar_vehiculo(matricula, anio, consumo)
         if not valido:
             QMessageBox.warning(self, "Error", msg)
             return
 
+        # ------------------------
+        # INSERTAR EN LA BASE DE DATOS
+        # ------------------------
         ok = self.repo.insertar(
             self.usuario.id,
-            tipo,
-            marca,
-            modelo,
-            matricula,
-            anio,
-            combustible,
-            float(consumo)
+            tipo, marca, modelo, matricula, anio, combustible, consumo
         )
 
         if ok:
-            QMessageBox.information(self, "Correcto", "Vehículo añadido correctamente.")
+            QMessageBox.information(self, "OK", "Vehículo añadido correctamente.")
             self.accept()
         else:
-            QMessageBox.critical(self, "Error", "No se pudo añadir el vehículo.")
+            QMessageBox.critical(self, "Error", "No se pudo guardar el vehículo.")

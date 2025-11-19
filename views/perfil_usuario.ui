@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>VentanaPerfilUsuario</class>
+ <widget class="QWidget" name="VentanaPerfilUsuario">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>450</width>
+    <height>650</height>
+   </rect>
+  </property>
+
+  <property name="windowTitle">
+   <string>Perfil del Usuario</string>
+  </property>
+
+  <layout class="QVBoxLayout" name="verticalLayout">
+
+   <!-- FOTO DE PERFIL -->
+   <item>
+    <widget class="QLabel" name="labelFoto">
+     <property name="minimumSize">
+      <size>
+       <width>140</width>
+       <height>140</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>140</width>
+       <height>140</height>
+      </size>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">
+       border-radius: 70px;
+       background-color: #cfcfcf;
+      </string>
+     </property>
+     <property name="text">
+      <string>Foto</string>
+     </property>
+    </widget>
+   </item>
+
+   <item>
+    <widget class="QPushButton" name="botonCambiarFoto">
+     <property name="text">
+      <string>Cambiar foto</string>
+     </property>
+    </widget>
+   </item>
+
+   <item>
+    <widget class="QLabel" name="labelTituloDatos">
+     <property name="text">
+      <string>Datos del usuario</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font-size: 18px; font-weight: bold;</string>
+     </property>
+    </widget>
+   </item>
+
+   <!-- NOMBRE -->
+   <item>
+    <widget class="QLineEdit" name="entradaNombre">
+     <property name="placeholderText">
+      <string>Nombre</string>
+     </property>
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
+    </widget>
+   </item>
+
+   <!-- APELLIDOS -->
+   <item>
+    <widget class="QLineEdit" name="entradaApellidos">
+     <property name="placeholderText">
+      <string>Apellidos</string>
+     </property>
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
+    </widget>
+   </item>
+
+   <!-- USERNAME -->
+   <item>
+    <widget class="QLineEdit" name="entradaUsername">
+     <property name="placeholderText">
+      <string>Nombre de usuario</string>
+     </property>
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
+    </widget>
+   </item>
+
+   <!-- EMAIL -->
+   <item>
+    <widget class="QLineEdit" name="entradaEmail">
+     <property name="placeholderText">
+      <string>Email</string>
+     </property>
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
+    </widget>
+   </item>
+
+   <!-- TELEFONO -->
+   <item>
+    <widget class="QLineEdit" name="entradaTelefono">
+     <property name="placeholderText">
+      <string>Teléfono</string>
+     </property>
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
+    </widget>
+   </item>
+
+   <!-- CIUDAD -->
+   <item>
+    <widget class="QLineEdit" name="entradaCiudad">
+     <property name="placeholderText">
+      <string>Ciudad</string>
+     </property>
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
+    </widget>
+   </item>
+
+   <item>
+    <widget class="QPushButton" name="botonEditar">
+     <property name="text">
+      <string>Editar perfil</string>
+     </property>
+    </widget>
+   </item>
+
+   <item>
+    <widget class="QPushButton" name="botonGuardarCambios">
+     <property name="text">
+      <string>Guardar cambios</string>
+     </property>
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
+    </widget>
+   </item>
+
+   <item>
+    <widget class="QPushButton" name="botonCambiarPassword">
+     <property name="text">
+      <string>Cambiar contraseña</string>
+     </property>
+    </widget>
+   </item>
+
+   <!-- ESTADÍSTICAS -->
+   <item>
+    <widget class="QLabel" name="labelTituloStats">
+     <property name="text">
+      <string>Actividad del usuario</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font-size: 18px; font-weight: bold;</string>
+     </property>
+    </widget>
+   </item>
+
+   <item>
+    <widget class="QLabel" name="labelStatsVehiculos">
+     <property name="text">
+      <string>Vehículos registrados: 0</string>
+     </property>
+    </widget>
+   </item>
+
+   <item>
+    <widget class="QLabel" name="labelStatsRepostajes">
+     <property name="text">
+      <string>Repostajes realizados: 0</string>
+     </property>
+    </widget>
+   </item>
+
+   <item>
+    <widget class="QLabel" name="labelStatsGasto">
+     <property name="text">
+      <string>Gasto total: 0 €</string>
+     </property>
+    </widget>
+   </item>
+
+   <!-- BOTONES FINALES -->
+   <item>
+    <widget class="QPushButton" name="botonEliminarCuenta">
+     <property name="text">
+      <string>Eliminar cuenta</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color: red;</string>
+     </property>
+    </widget>
+   </item>
+
+   <item>
+    <widget class="QPushButton" name="botonVolver">
+     <property name="text">
+      <string>Volver</string>
+     </property>
+    </widget>
+   </item>
+
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

@@ -23,6 +23,7 @@ from services.vehiculo_service import VehiculoService
 
 # Estilos
 from styles.estilos import ESTILOS
+from controllers.perfil_controller import PerfilUsuarioController
 
 
 class AppController:
@@ -149,3 +150,9 @@ class AppController:
     def open_ajustes(self, usuario):
         self.ajustes = AjustesController(self, usuario)
         self.ajustes.show()
+    
+    
+    def open_perfil(self, usuario):
+       self.perfil = PerfilUsuarioController(self, usuario, self.user_service, self.vehiculo_repo)
+       self.perfil.show()
+

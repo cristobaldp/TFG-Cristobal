@@ -8,3 +8,6 @@ class Usuario:
         self.telefono = telefono
         self.ciudad = ciudad
         self.fecha_nacimiento = fecha_nacimiento
+
+    def __repr__(self):
+        return f"Usuario({self.id}, {self.nombre}, {self.apellidos})"

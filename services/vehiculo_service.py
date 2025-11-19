@@ -18,30 +18,27 @@ class VehiculoService:
     def obtener_modelos(self, tipo, marca):
         return self.data.get(tipo, {}).get(marca, [])
 
-    def validar_vehiculo(self, matricula, anio, consumo):
     
-    # =============================
-    # VALIDAR MATRÍCULA ESPAÑOLA
-    # =============================
-       matricula = matricula.replace(" ", "").replace("-", "").upper()
+    def validar_vehiculo(self, matricula, anio, consumo): 
 
-       patron = r"^[0-9]{4}[BCDFGHJKLMNPRSTVWXYZ]{3}$"
+    # Convertir a mayúsculas automáticamente
+       matricula = matricula.upper()
+
+    # MATRÍCULA → 4 números + guion + 3 letras
+       patron = r"^\d{4}-[A-Z]{3}$"
+
        if not re.match(patron, matricula):
-        return False, "Formato de matrícula no válido (Ej: 1234BCD)"
+        return False, "Formato de matrícula inválido (ej: 1234-ABC)"
 
-    # =============================
-    # VALIDAR AÑO
-    # =============================
-       if not anio.isdigit() or not (1900 <= int(anio) <= 2050):
-        return False, "Año no válido"
+    # AÑO → 4 dígitos
+       if not anio.isdigit() or len(anio) != 4:
+        return False, "Año inválido"
 
-    # =============================
-    # VALIDAR CONSUMO
-    # =============================
+    # CONSUMO → número válido
        try:
-        cons = float(consumo)
-        if cons <= 0:
-            return False, "El consumo debe ser mayor que 0"
+          consumo_f = float(consumo)
+          if consumo_f <= 0:
+            return False, "Consumo debe ser mayor que 0"
        except:
         return False, "Consumo debe ser numérico"
 

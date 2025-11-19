@@ -1,4 +1,4 @@
-import bcrypt
+import sqlite3
 
 class UsuarioRepository:
     def __init__(self, db):
@@ -16,9 +16,11 @@ class UsuarioRepository:
 
             con.commit()
             return True
+
         except Exception as e:
             print("Error al insertar usuario:", e)
             return False
+
         finally:
             con.close()
 
@@ -34,4 +36,15 @@ class UsuarioRepository:
 
         row = cur.fetchone()
         con.close()
-        return row
+
+        # Si NO existe → return None
+        if not row:
+            return None
+
+        # Asegurar que la contraseña sea bytes
+        id, nombre, apellidos, username, email, telefono, ciudad, fecha, password = row
+
+        if isinstance(password, str):
+            password = password.encode("utf-8")
+
+        return (id, nombre, apellidos, username, email, telefono, ciudad, fecha, password)

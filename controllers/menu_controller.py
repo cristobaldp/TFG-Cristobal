@@ -12,37 +12,47 @@ class MenuController(QMainWindow):
         self.ui = VentanaMenu()
         self.ui.setupUi(self)
 
-        # Cambiar texto bienvenida
+        # ============================
+        #   TEXTO DE BIENVENIDA
+        # ============================
         self.ui.labelBienvenida.setText(f"Bienvenido, {usuario.nombre}")
 
-        # ========= EMOJIS EN BOTONES =========
-        self.ui.botonVehiculos.setText("🚗  " + self.ui.botonVehiculos.text())
-        self.ui.botonRepostajes.setText("⛽  " + self.ui.botonRepostajes.text())
-        self.ui.botonMapaGasolineras.setText("🗺️  " + self.ui.botonMapaGasolineras.text())
-        self.ui.botonHistorial.setText("📜  " + self.ui.botonHistorial.text())
-        self.ui.botonEstadisticas.setText("📊  " + self.ui.botonEstadisticas.text())
-        self.ui.botonPerfil.setText("👤  " + self.ui.botonPerfil.text())
-        self.ui.botonAjustes.setText("⚙️  " + self.ui.botonAjustes.text())
-        self.ui.botonCerrarSesion.setText("🔐  " + self.ui.botonCerrarSesion.text())
-        self.ui.botonSalir.setText("❌  " + self.ui.botonSalir.text())
-        # =====================================
+        # ============================
+        #   EMOJIS EN BOTONES
+        # ============================
+        self.ui.botonVehiculos.setText("🚗  Gestionar Vehículos")
+        self.ui.botonRepostajes.setText("⛽  Repostajes")
+        self.ui.botonMapaGasolineras.setText("🗺️  Mapa de Gasolineras")
+        self.ui.botonHistorial.setText("📜  Historial")
+        self.ui.botonEstadisticas.setText("📊  Estadísticas")
+        self.ui.botonPerfil.setText("👤  Perfil del Usuario")
+        self.ui.botonAjustes.setText("⚙️  Ajustes")
+        self.ui.botonCerrarSesion.setText("🔐  Cerrar Sesión")
+        self.ui.botonSalir.setText("❌  Salir")
 
-        # ========= CONEXIONES =========
+        # ============================
+        #   CONEXIONES
+        # ============================
         self.ui.botonVehiculos.clicked.connect(self.abrir_vehiculos)
         self.ui.botonRepostajes.clicked.connect(self.abrir_repostajes)
         self.ui.botonMapaGasolineras.clicked.connect(self.abrir_mapa)
         self.ui.botonHistorial.clicked.connect(self.abrir_historial)
         self.ui.botonEstadisticas.clicked.connect(self.abrir_estadisticas)
+
+        # PERFIL → LLAMA AL APPCONTROLLER
         self.ui.botonPerfil.clicked.connect(self.abrir_perfil)
 
-        # AJUSTES (NUEVO) ⭐⭐⭐
+        # AJUSTES
         self.ui.botonAjustes.clicked.connect(self.abrir_ajustes)
 
+        # SESIÓN
         self.ui.botonCerrarSesion.clicked.connect(self.cerrar_sesion)
         self.ui.botonSalir.clicked.connect(self.salir_app)
-        # ======================================
 
-    # -------- ABRIR GESTIÓN DE VEHÍCULOS --------
+    # ========================================
+    #              FUNCIONES
+    # ========================================
+
     def abrir_vehiculos(self):
         self.ventanaVehiculos = VehiculosController(
             self.app,
@@ -53,29 +63,28 @@ class MenuController(QMainWindow):
         self.ventanaVehiculos.show()
 
     def abrir_repostajes(self):
-        print("Repostajes... (por implementar)")
+        print("🔧 Repostajes pendiente de implementar")
 
     def abrir_mapa(self):
-        print("Mapa de gasolineras... (por implementar)")
+        print("🗺️ Mapa pendiente de implementar")
 
     def abrir_historial(self):
-        print("Historial...")
+        print("📜 Historial pendiente")
 
     def abrir_estadisticas(self):
-        print("Estadísticas...")
+        print("📊 Estadísticas pendientes")
 
     def abrir_perfil(self):
-        print("Perfil del usuario...")
+        """Llama al PerfilUsuarioController desde el AppController."""
+        self.app.open_perfil(self.usuario)
 
-    # -------- ABRIR AJUSTES (NUEVO) -------- ⭐⭐⭐
     def abrir_ajustes(self):
+        """Llama a la ventana Ajustes desde AppController."""
         self.app.open_ajustes(self.usuario)
 
-    # -------- CERRAR SESIÓN --------
     def cerrar_sesion(self):
         self.close()
         self.app.show_login()
 
-    # -------- SALIR COMPLETAMENTE --------
     def salir_app(self):
         QApplication.quit()

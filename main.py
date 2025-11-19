@@ -7,3 +7,4 @@ if __name__ == "__main__":
     controller = AppController()
     sys.exit(app.exec())
 print ("Ejecutando app...") 
+print ("Cambios")

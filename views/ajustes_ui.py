@@ -19,7 +19,7 @@ from PySide6.QtWidgets import (QApplication, QCheckBox, QComboBox, QDialog,
     QLabel, QPushButton, QSizePolicy, QVBoxLayout,
     QWidget)
 
-class Ui_VentanaAjustes(object):
+class VentanaAjustes(object):
     def setupUi(self, VentanaAjustes):
         if not VentanaAjustes.objectName():
             VentanaAjustes.setObjectName(u"VentanaAjustes")
